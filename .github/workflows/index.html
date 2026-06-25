@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrenamiento ISO 9001:2015 — Ing. Iván Morales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:      #0D1B20;
+  --cream:    #F2EFE6;
+  --cream2:   #EAE6DC;
+  --orange:   #E07C18;
+  --orange2:  #C26A0E;
+  --white:    #FFFFFF;
+  --muted:    #6E7A7E;
+  --border:   #DEDAD0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ─── ANNOUNCE BAR ─── */
+.announce-bar {
+  background: var(--orange);
+  padding: 11px 0;
+  text-align: center;
+}
+.announce-bar p {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.announce-bar p i { font-size: 15px; }
+.announce-link {
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* ─── NAV ─── */
+nav {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  line-height: 1;
+}
+.nav-cta {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--orange); }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 60px 0 72px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Big decorative number behind title */
+.hero-bg-num {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 340px;
+  color: rgba(13,27,32,0.045);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -4px;
+}
+
+.hero-single {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 6.5vw, 72px);
+  color: var(--ink);
+  line-height: 0.9;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+.hero-title .num {
+  display: block;
+  font-size: clamp(88px, 12vw, 128px);
+  color: var(--orange);
+  letter-spacing: -2px;
+  line-height: 0.85;
+}
+
+.hero-tagline {
+  font-size: 16px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 0;
+  margin-bottom: 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--white);
+}
+.stat {
+  flex: 1;
+  padding: 14px 16px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat:last-child { border-right: none; }
+.stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: 0.5px;
+  display: block;
+  line-height: 1.1;
+}
+.stat-lbl {
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.btn-main {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 17px 36px;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.15s;
+}
+.btn-main:hover { background: var(--orange2); }
+.btn-main i { font-size: 18px; }
+
+.hero-discount {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--orange);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* HERO IMAGE */
+.hero-img-wrap {
+  position: relative;
+}
+.carousel-frame {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #B8AFA0;
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.carousel-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #C4BBAD 0%, #8C8074 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.8);
+}
+.carousel-inner i { font-size: 48px; }
+.carousel-inner span {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+}
+.c-arrows {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  display: flex;
+  gap: 6px;
+}
+.c-arrow {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  color: var(--ink);
+}
+.dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  justify-content: center;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: all 0.2s; }
+.dot.active { width: 20px; border-radius: 3px; background: var(--orange); }
+
+/* ─── TRUST BAR ─── */
+.trust-bar {
+  background: var(--ink);
+  padding: 14px 0;
+}
+.trust-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #A0B4BA;
+  font-size: 13px;
+  font-weight: 500;
+}
+.trust-item i { color: var(--orange); font-size: 16px; flex-shrink: 0; }
+.trust-item strong { color: #fff; font-weight: 600; }
+.trust-sep {
+  color: rgba(255,255,255,0.2);
+  font-size: 18px;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ─── SECTIONS ─── */
+.sec { padding: 80px 0; }
+.sec + .sec { border-top: 1px solid var(--border); }
+
+.sec-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 52px);
+  color: var(--ink);
+  line-height: 0.95;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
+.sec-lead {
+  font-size: 15px;
+  color: #4B5760;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* ─── BENEFICIOS ─── */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 40px;
+}
+.benefit-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 22px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: border-color 0.2s;
+}
+.benefit-card:hover { border-color: var(--orange); }
+.b-icon {
+  width: 42px;
+  height: 42px;
+  background: #FEF0E0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.b-icon i { font-size: 22px; color: var(--orange); }
+.b-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+.b-desc  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* ─── TEMARIO ─── */
+.temario-list { margin-top: 40px; display: flex; flex-direction: column; gap: 8px; }
+
+.tema-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--white);
+}
+.tema-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  cursor: pointer;
+  gap: 16px;
+  transition: background 0.15s;
+}
+.tema-header:hover { background: #F7F4EE; }
+.tema-left { display: flex; align-items: center; gap: 16px; }
+.tema-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--orange);
+  white-space: nowrap;
+}
+.tema-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+.tema-toggle { font-size: 20px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.tema-body {
+  display: none;
+  padding: 0 22px 18px;
+  border-top: 1px solid #F0ECE4;
+}
+.tema-body p { font-size: 13px; color: #4B5760; line-height: 1.65; padding-top: 16px; }
+.tema-item.open .tema-body { display: block; }
+.tema-item.open .tema-toggle { transform: rotate(45deg); }
+
+/* ─── URGENCY ─── */
+.urgency-wrap { margin-top: 48px; }
+.urgency {
+  background: var(--ink);
+  border-radius: 10px;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+.urg-left { display: flex; align-items: center; gap: 18px; }
+.urg-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(224,124,24,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.urg-icon i { font-size: 24px; color: var(--orange); }
+.urg-text { color: #9BB2B8; font-size: 14px; line-height: 1.5; }
+.urg-text strong { color: #fff; font-size: 16px; display: block; margin-bottom: 2px; }
+.btn-urg {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.btn-urg:hover { background: var(--orange2); }
+
+/* ─── INSTRUCTOR ─── */
+.instructor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 40px;
+}
+.photo-frame {
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #1E3038, #0D1B20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.35);
+}
+.photo-placeholder i { font-size: 52px; }
+.photo-placeholder span {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.instr-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 3.5vw, 36px);
+  color: var(--ink);
+  letter-spacing: 1px;
+  line-height: 1.0;
+  margin-bottom: 8px;
+  white-space: nowrap;
+}
+.instr-role {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--orange);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.instr-bio {
+  font-size: 15px;
+  color: #4B5760;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.social-row { display: flex; gap: 8px; }
+.soc {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--white);
+  font-size: 19px;
+  color: var(--ink);
+  transition: border-color 0.15s, color 0.15s;
+}
+.soc:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ─── FOOTER CONTACT ─── */
+.footer-contact {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.c-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.c-label i { font-size: 14px; }
+.c-val { font-size: 13px; font-weight: 600; color: var(--ink); }
+
+/* ─── FOOTER BOTTOM ─── */
+.footer-btm {
+  background: var(--ink);
+  padding: 18px 0;
+}
+.footer-btm-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.f-copy { font-size: 12px; color: #5A7078; }
+.f-links { display: flex; gap: 20px; }
+.f-links a { font-size: 12px; color: #5A7078; text-decoration: none; cursor: pointer; }
+.f-links a:hover { color: #9BB2B8; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 720px) {
+  .container { padding: 0 20px; }
+  .hero { padding: 40px 0 56px; }
+  .hero-bg-num { font-size: 160px; top: 0; }
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .hero-title { font-size: clamp(32px, 8.5vw, 56px); white-space: normal; }
+  .hero-title .num { font-size: clamp(68px, 17vw, 96px); }
+  .hero-stats { flex-wrap: wrap; }
+  .hero-stats .stat { flex: 1 1 45%; }
+  .btn-main { width: 100%; justify-content: center; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .instructor-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .urgency { padding: 24px 20px; flex-direction: column; gap: 16px; }
+  .btn-urg { width: 100%; justify-content: center; }
+  .trust-inner { justify-content: flex-start; overflow-x: auto; padding: 0 20px; }
+  .footer-btm-inner { flex-direction: column; text-align: center; }
+  .f-links { justify-content: center; }
+  .nav-cta { padding: 9px 16px; font-size: 12px; }
+}
+
+@media (max-width: 400px) {
+  .hero-stats .stat { flex: 1 1 100%; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="announce-bar">
+  <p>
+    <i class="ti ti-calendar-event"></i>
+    Taller online · ISO 9001:2015 · 24 de mayo, 2025 —
+    <span class="announce-link">Lugares muy limitados &rarr;</span>
+  </p>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <div class="logo">Ing. Iván Morales</div>
+      <button class="nav-cta">Inscríbete ahora <i class="ti ti-arrow-right"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-num">9001</div>
+  <div class="container">
+    <div class="hero-single">
+      <div class="hero-eyebrow">Curso online · Entrenamiento intensivo</div>
+      <h1 class="hero-title">
+        Entrenamiento en ISO
+        <span class="num">9001:2015</span>
+      </h1>
+      <p class="hero-tagline">De la teoría a la implementación real. En una sola jornada.</p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-val">8 HRS</span>
+          <span class="stat-lbl">Duración</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">MÁX. 8</span>
+          <span class="stat-lbl">Por grupo</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">100%</span>
+          <span class="stat-lbl">Práctico</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">CERT.</span>
+          <span class="stat-lbl">Al finalizar</span>
+        </div>
+      </div>
+
+      <button class="btn-main">Quiero mi lugar <i class="ti ti-arrow-right"></i></button>
+      <div class="hero-discount">
+        <i class="ti ti-tag"></i>
+        20% de descuento de lanzamiento — tiempo limitado
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <i class="ti ti-building-factory-2"></i>
+        <span>+10 años de experiencia</span>
+      </div>
+      <span class="trust-sep">·</span>
+      <div class="trust-item">
+        <i class="ti ti-users-group"></i>
+        <span>Grupos de <strong>máximo 8 personas</strong></span>
+      </div>
+      <span class="trust-sep">·</span>
+      <div class="trust-item">
+        <i class="ti ti-rosette-discount-check"></i>
+        <span>Constancia <strong>oficial incluida</strong></span>
+      </div>
+      <span class="trust-sep">·</span>
+      <div class="trust-item">
+        <i class="ti ti-headset"></i>
+        <span>Soporte <strong>post-taller</strong></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFICIOS -->
+<section class="sec">
+  <div class="container">
+    <div class="sec-eyebrow">Qué vas a lograr</div>
+    <h2 class="sec-title">Lo que nadie más<br>te enseña en un día.</h2>
+    <p class="sec-lead">Este entrenamiento está diseñado para que salgas con un plan real, no solo conocimiento teórico. Herramientas concretas, ejemplos de industria, y acompañamiento personalizado.</p>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="b-icon"><i class="ti ti-sitemap"></i></div>
+        <div>
+          <div class="b-title">Diseña tu SGC desde cero</div>
+          <div class="b-desc">Mapea procesos y construye la estructura que exige la norma — sin adivinar ni contratar consultores.</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon"><i class="ti ti-shield-check"></i></div>
+        <div>
+          <div class="b-title">Gestiona riesgos con claridad</div>
+          <div class="b-desc">Identifica, evalúa y controla los riesgos que frenan la calidad en tu empresa con metodología probada.</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon"><i class="ti ti-trending-up"></i></div>
+        <div>
+          <div class="b-title">Mejora continua aplicada</div>
+          <div class="b-desc">Implementa el ciclo PHVA de forma práctica para que tu empresa deje de improvisar y empiece a crecer.</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon"><i class="ti ti-license"></i></div>
+        <div>
+          <div class="b-title">Listo para certificarte</div>
+          <div class="b-desc">Terminas el taller con un plan de acción concreto para presentar ante un organismo certificador.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMARIO -->
+<section class="sec">
+  <div class="container">
+    <div class="sec-eyebrow">Contenido del curso</div>
+    <h2 class="sec-title">4 bloques.<br>Una jornada completa.</h2>
+    <p class="sec-lead">De fundamentos a mejora continua — todo lo que necesitas para implementar ISO 9001:2015 en tu organización.</p>
+
+    <div class="temario-list">
+      <div class="tema-item open">
+        <div class="tema-header" onclick="toggleTema(this)">
+          <div class="tema-left">
+            <span class="tema-num">Tema 01</span>
+            <span class="tema-name">Fundamentos de la calidad y ISO 9001:2015</span>
+          </div>
+          <i class="ti ti-plus tema-toggle"></i>
+        </div>
+        <div class="tema-body">
+          <p>Historia y evolución de la norma, los 7 principios de gestión de calidad, estructura de alto nivel (HLS) y cómo se vincula con el contexto real de tu organización.</p>
+        </div>
+      </div>
+
+      <div class="tema-item">
+        <div class="tema-header" onclick="toggleTema(this)">
+          <div class="tema-left">
+            <span class="tema-num">Tema 02</span>
+            <span class="tema-name">Contexto de la organización y liderazgo</span>
+          </div>
+          <i class="ti ti-plus tema-toggle"></i>
+        </div>
+        <div class="tema-body">
+          <p>Análisis del entorno (FODA), identificación de partes interesadas, definición del alcance del SGC, política de calidad y asignación de roles y responsabilidades.</p>
+        </div>
+      </div>
+
+      <div class="tema-item">
+        <div class="tema-header" onclick="toggleTema(this)">
+          <div class="tema-left">
+            <span class="tema-num">Tema 03</span>
+            <span class="tema-name">Planificación y gestión de riesgos</span>
+          </div>
+          <i class="ti ti-plus tema-toggle"></i>
+        </div>
+        <div class="tema-body">
+          <p>Metodología para identificar y abordar riesgos y oportunidades, establecimiento de objetivos de calidad medibles, y planificación de cambios en el sistema.</p>
+        </div>
+      </div>
+
+      <div class="tema-item">
+        <div class="tema-header" onclick="toggleTema(this)">
+          <div class="tema-left">
+            <span class="tema-num">Tema 04</span>
+            <span class="tema-name">Operación, evaluación y mejora continua</span>
+          </div>
+          <i class="ti ti-plus tema-toggle"></i>
+        </div>
+        <div class="tema-body">
+          <p>Control operacional, gestión de no conformidades, auditoría interna, revisión por la dirección y ciclo PHVA para la mejora sistemática y sostenida.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="urgency-wrap">
+      <div class="urgency">
+        <div class="urg-left">
+          <div class="urg-icon"><i class="ti ti-clock-hour-4"></i></div>
+          <div class="urg-text">
+            <strong>El 20% de descuento vence pronto.</strong>
+            Asegura tu lugar antes de que el precio suba — los grupos son de máximo 8 personas.
+          </div>
+        </div>
+        <button class="btn-urg">Reservar mi lugar <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="sec">
+  <div class="container">
+    <div class="sec-eyebrow">Tu instructor</div>
+    <h2 class="sec-title">Conoce a Iván</h2>
+
+    <div class="instructor-grid">
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <i class="ti ti-user"></i>
+          <span>Foto del instructor</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="instr-name">Ing. Iván Morales</div>
+        <div class="instr-role">Ingeniero Industrial · Diseñador de Sistemas de Gestión</div>
+        <p class="instr-bio">Con más de 10 años de experiencia ayudando a empresas a implementar sistemas de gestión efectivos. Ha guiado a decenas de organizaciones a obtener su certificación ISO 9001 y a mejorar sus procesos de manera sostenible y medible.</p>
+        <div class="social-row">
+          <div class="soc"><i class="ti ti-brand-linkedin"></i></div>
+          <div class="soc"><i class="ti ti-brand-instagram"></i></div>
+          <div class="soc"><i class="ti ti-brand-tiktok"></i></div>
+          <div class="soc"><i class="ti ti-brand-whatsapp"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CONTACT -->
+<div class="footer-contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="c-label"><i class="ti ti-mail"></i> Correo</div>
+        <div class="c-val">hola@ingivanmorales.com</div>
+      </div>
+      <div>
+        <div class="c-label"><i class="ti ti-brand-whatsapp"></i> WhatsApp</div>
+        <div class="c-val">+52 55 1234 5678</div>
+      </div>
+      <div>
+        <div class="c-label"><i class="ti ti-mail-forward"></i> Respuesta</div>
+        <div class="c-val">En menos de 24 hrs</div>
+      </div>
+      <div>
+        <div class="c-label"><i class="ti ti-clock"></i> Horario</div>
+        <div class="c-val">Lun – Vie, 9:00 – 18:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER BOTTOM -->
+<div class="footer-btm">
+  <div class="container">
+    <div class="footer-btm-inner">
+      <div class="f-copy">© 2025 Ing. Iván Morales. Todos los derechos reservados.</div>
+      <div class="f-links">
+        <a href="#">Aviso de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleTema(header) {
+  header.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>
