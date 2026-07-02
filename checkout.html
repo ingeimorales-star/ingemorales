@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Calidad basada en ISO 9001:2015 | Ing. Iván Morales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:      #0D1B20;
+  --cream:    #F2EFE6;
+  --cream2:   #EAE6DC;
+  --orange:   #E07C18;
+  --orange2:  #C26A0E;
+  --white:    #FFFFFF;
+  --muted:    #6E7A7E;
+  --border:   #DEDAD0;
+  --green:    #2E8B57;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 40px; }
+
+/* NAV */
+nav {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--ink); }
+.nav-secure {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+}
+.nav-secure i { color: var(--green); font-size: 16px; }
+
+/* LAYOUT */
+.checkout-wrap { padding: 56px 0 100px; }
+.checkout-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(30px, 4vw, 40px);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.checkout-sub { font-size: 14px; color: var(--muted); margin-bottom: 40px; }
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* LEFT — order summary */
+.order-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px;
+}
+.order-course {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.order-icon {
+  width: 54px; height: 54px; flex-shrink: 0;
+  background: #FEF0E0; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.order-icon i { font-size: 26px; color: var(--orange); }
+.order-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.5px; line-height: 1.1; }
+.order-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.includes-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 14px; }
+.includes-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+.includes-list li { list-style: none; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #2A363D; }
+.includes-list i { color: var(--green); font-size: 17px; margin-top: 1px; flex-shrink: 0; }
+
+.guarantee-box {
+  background: var(--cream2);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.guarantee-box i { color: var(--orange); font-size: 20px; margin-top: 1px; flex-shrink: 0; }
+.guarantee-box div { font-size: 13px; color: #4B5760; line-height: 1.55; }
+.guarantee-box strong { color: var(--ink); }
+
+/* RIGHT — payment panel */
+.pay-card {
+  background: var(--ink);
+  border-radius: 14px;
+  padding: 32px;
+  color: #fff;
+  position: sticky;
+  top: 24px;
+}
+.price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.price-old { font-size: 15px; color: #7A8E94; text-decoration: line-through; }
+.price-badge {
+  background: var(--orange);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.price-now {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 46px;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.price-note { font-size: 12px; color: #8FA3A9; margin-bottom: 26px; }
+
+.pay-divider { border-top: 1px solid rgba(255,255,255,0.12); margin: 22px 0; }
+
+.pay-fields { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+.pay-fields label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #8FA3A9; display: block; margin-bottom: 6px; }
+.pay-fields input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 6px;
+  padding: 11px 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.pay-fields input::placeholder { color: #5E747A; }
+.pay-fields input:focus { border-color: var(--orange); }
+
+.btn-pay {
+  width: 100%;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 17px 20px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-pay:hover { background: var(--orange2); }
+.btn-pay i { font-size: 19px; }
+
+.pay-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #7A8E94;
+  margin-top: 14px;
+}
+.pay-secure i { color: var(--green); font-size: 14px; }
+
+.pay-methods {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.pm {
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 5px;
+  padding: 5px 9px;
+  font-size: 11px;
+  color: #8FA3A9;
+  font-weight: 600;
+}
+
+.trust-strip {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.trust-strip div {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; color: var(--muted); font-weight: 500;
+}
+.trust-strip i { color: var(--orange); font-size: 16px; }
+
+@media (max-width: 800px) {
+  .checkout-grid { grid-template-columns: 1fr; }
+  .pay-card { position: static; }
+  .container { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">Ing. Iván Morales</a>
+      <div class="nav-secure"><i class="ti ti-lock"></i> Pago 100% seguro</div>
+    </div>
+  </div>
+</nav>
+
+<div class="checkout-wrap">
+  <div class="container">
+    <div class="checkout-title">Confirma tu lugar</div>
+    <div class="checkout-sub">Estás a un paso de comenzar tu entrenamiento en ISO 9001:2015.</div>
+
+    <div class="checkout-grid">
+
+      <!-- RESUMEN DEL CURSO -->
+      <div class="order-card">
+        <div class="order-course">
+          <div class="order-icon"><i class="ti ti-certificate"></i></div>
+          <div>
+            <div class="order-name">Calidad basada en ISO 9001:2015</div>
+            <div class="order-meta">12 hrs · 3 días · Curso online en vivo</div>
+          </div>
+        </div>
+
+        <div class="includes-title">Qué incluye tu lugar</div>
+        <ul class="includes-list">
+          <li><i class="ti ti-circle-check-filled"></i> Acceso a las 3 sesiones en vivo (12 hrs de contenido)</li>
+          <li><i class="ti ti-circle-check-filled"></i> Actividades prácticas, individuales y grupales</li>
+          <li><i class="ti ti-circle-check-filled"></i> Constancia de participación al finalizar el curso</li>
+          <li><i class="ti ti-circle-check-filled"></i> Soporte post-taller para resolver tus dudas</li>
+          <li><i class="ti ti-circle-check-filled"></i> Grupo limitado para atención personalizada</li>
+        </ul>
+
+        <div class="guarantee-box">
+          <i class="ti ti-shield-check"></i>
+          <div><strong>Confirmación inmediata.</strong> Al completar tu pago recibirás un correo con los detalles de acceso y el enlace al grupo de soporte del curso.</div>
+        </div>
+      </div>
+
+      <!-- PANEL DE PAGO -->
+      <div class="pay-card">
+        <div class="price-row">
+          <span class="price-old">$3,749 MXN</span>
+          <span class="price-badge">-20%</span>
+        </div>
+        <div class="price-now">$2,999 MXN</div>
+        <div class="price-note">Precio de lanzamiento · pago único</div>
+
+        <div class="pay-divider"></div>
+
+        <div class="pay-fields">
+          <div>
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" placeholder="Como aparecerá en tu constancia">
+          </div>
+          <div>
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" placeholder="tucorreo@ejemplo.com">
+          </div>
+          <div>
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" placeholder="(664) 000 00-00">
+          </div>
+        </div>
+
+        <!--
+          IMPORTANTE — Reemplaza el href de abajo con tu Stripe Payment Link real.
+          Se crea gratis desde: Stripe Dashboard → Payment Links → Create payment link.
+          En la configuración del Payment Link, en "After payment", activa
+          "Redirect customers to a website" y pon la URL de tu página gracias.html
+          (por ejemplo: https://ingeimorales-star.github.io/ingemorales/gracias.html)
+        -->
+        <a id="btnPagar" href="https://buy.stripe.com/TU_PAYMENT_LINK_AQUI" class="btn-pay">
+          <i class="ti ti-lock"></i> Pagar y reservar mi lugar
+        </a>
+
+        <div class="pay-secure"><i class="ti ti-shield-lock"></i> Procesado de forma segura por Stripe</div>
+
+        <div class="pay-methods">
+          <span class="pm">Visa</span>
+          <span class="pm">Mastercard</span>
+          <span class="pm">Amex</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="trust-strip">
+      <div><i class="ti ti-lock"></i> Conexión cifrada</div>
+      <div><i class="ti ti-mail-forward"></i> Confirmación por correo</div>
+      <div><i class="ti ti-headset"></i> Soporte post-taller</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Pasamos nombre/correo capturados como parámetros a Stripe si el Payment Link
+// tiene habilitado "client_reference_id" o campos prellenados (opcional, ajusta según tu Payment Link).
+document.getElementById('btnPagar').addEventListener('click', function (e) {
+  const correo = document.getElementById('correo').value.trim();
+  if (correo) {
+    const url = new URL(this.href);
+    url.searchParams.set('prefilled_email', correo);
+    this.href = url.toString();
+  }
+});
+</script>
+
+</body>
+</html>
