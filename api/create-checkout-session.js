@@ -8,18 +8,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { nombre, correo } = req.body || {};
-
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
       line_items: [
         { price: 'price_1TsForImuwQn2usBXTsgT1h2', quantity: 1 }
       ],
       mode: 'payment',
-      customer_email: correo || undefined,
-      metadata: {
-        nombre: nombre || '',
-      },
+      custom_fields: [
+        {
+          key: 'nombre_completo',
+          label: { type: 'custom', custom: 'Nombre completo (para tu constancia)' },
+          type: 'text',
+        },
+        {
+          key: 'whatsapp',
+          label: { type: 'custom', custom: 'WhatsApp' },
+          type: 'text',
+        },
+      ],
       return_url: `https://ingeimorales.com/gracias?session_id={CHECKOUT_SESSION_ID}`,
     });
 
