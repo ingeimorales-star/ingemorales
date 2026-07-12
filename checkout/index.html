@@ -33,7 +33,6 @@ body {
 
 .container { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 40px; }
 
-/* NAV */
 nav {
   background: var(--cream);
   border-bottom: 1px solid var(--border);
@@ -47,7 +46,6 @@ nav {
 }
 .nav-secure i { color: var(--green); font-size: 16px; }
 
-/* LAYOUT */
 .checkout-wrap { padding: 56px 0 100px; }
 .checkout-title {
   font-family: 'Bebas Neue', sans-serif;
@@ -64,7 +62,6 @@ nav {
   align-items: start;
 }
 
-/* LEFT — order summary */
 .order-card {
   background: var(--white);
   border: 1px solid var(--border);
@@ -105,7 +102,6 @@ nav {
 .guarantee-box div { font-size: 13px; color: #4B5760; line-height: 1.55; }
 .guarantee-box strong { color: var(--ink); }
 
-/* RIGHT — payment panel */
 .pay-card {
   background: var(--ink);
   border-radius: 14px;
@@ -135,23 +131,6 @@ nav {
 .price-note { font-size: 12px; color: #8FA3A9; margin-bottom: 26px; }
 
 .pay-divider { border-top: 1px solid rgba(255,255,255,0.12); margin: 22px 0; }
-
-.pay-fields { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
-.pay-fields label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #8FA3A9; display: block; margin-bottom: 6px; }
-.pay-fields input {
-  width: 100%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 6px;
-  padding: 11px 13px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: #fff;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.pay-fields input::placeholder { color: #5E747A; }
-.pay-fields input:focus { border-color: var(--orange); }
 
 .btn-pay {
   width: 100%;
@@ -217,7 +196,6 @@ nav {
 }
 .trust-strip i { color: var(--orange); font-size: 16px; }
 
-/* EMBEDDED CHECKOUT CONTAINER */
 #checkout-container {
   background: #fff;
   border-radius: 10px;
@@ -302,31 +280,12 @@ nav {
 
         <div class="pay-divider"></div>
 
-        <div id="pre-pay-fields">
-          <div class="pay-fields">
-            <div>
-              <label for="nombre">Nombre completo</label>
-              <input type="text" id="nombre" placeholder="Como aparecerá en tu constancia">
-            </div>
-            <div>
-              <label for="correo">Correo electrónico</label>
-              <input type="email" id="correo" placeholder="tucorreo@ejemplo.com">
-            </div>
-            <div>
-              <label for="whatsapp">WhatsApp</label>
-              <input type="tel" id="whatsapp" placeholder="(664) 000 00-00">
-            </div>
-          </div>
+        <button id="btnPagar" class="btn-pay">
+          <i class="ti ti-lock"></i> Pagar y reservar mi lugar
+        </button>
 
-          <button id="btnPagar" class="btn-pay">
-            <i class="ti ti-lock"></i> Continuar al pago
-          </button>
-
-          <div class="checkout-error" id="checkoutError"></div>
-        </div>
-
+        <div class="checkout-error" id="checkoutError"></div>
         <div class="checkout-loading" id="checkoutLoading">Cargando formulario de pago…</div>
-
         <div id="checkout-container"></div>
 
         <div class="pay-secure"><i class="ti ti-shield-lock"></i> Procesado de forma segura por Stripe</div>
@@ -353,49 +312,31 @@ nav {
 const stripe = Stripe('pk_test_51To92pImuwQn2usBoi4Z3OASeiubTdU6bt9XQHhZXa04YeSAKhRnIlZhnpwSTD4z1MjDv4p5oyjjdb9BWwigxxzc00Ty38Q5cm');
 
 const btnPagar = document.getElementById('btnPagar');
-const preFields = document.getElementById('pre-pay-fields');
 const loadingEl = document.getElementById('checkoutLoading');
 const errorEl = document.getElementById('checkoutError');
-const checkoutContainer = document.getElementById('checkout-container');
 
 btnPagar.addEventListener('click', async function () {
-  const nombre = document.getElementById('nombre').value.trim();
-  const correo = document.getElementById('correo').value.trim();
-
   errorEl.style.display = 'none';
-
-  if (!correo || !correo.includes('@')) {
-    errorEl.textContent = 'Ingresa un correo electrónico válido para continuar.';
-    errorEl.style.display = 'block';
-    return;
-  }
-
   btnPagar.disabled = true;
   btnPagar.innerHTML = '<i class="ti ti-loader-2"></i> Cargando...';
+  loadingEl.style.display = 'block';
 
   try {
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, correo }),
-    });
-
+    const response = await fetch('/api/create-checkout-session', { method: 'POST' });
     if (!response.ok) throw new Error('No se pudo iniciar el pago. Intenta de nuevo.');
 
     const { clientSecret, error } = await response.json();
     if (error) throw new Error(error);
 
-    preFields.style.display = 'none';
-    loadingEl.style.display = 'block';
-
+    btnPagar.style.display = 'none';
     const checkout = await stripe.initEmbeddedCheckout({ clientSecret });
     loadingEl.style.display = 'none';
     checkout.mount('#checkout-container');
   } catch (err) {
-    preFields.style.display = 'block';
     loadingEl.style.display = 'none';
     btnPagar.disabled = false;
-    btnPagar.innerHTML = '<i class="ti ti-lock"></i> Continuar al pago';
+    btnPagar.style.display = 'flex';
+    btnPagar.innerHTML = '<i class="ti ti-lock"></i> Pagar y reservar mi lugar';
     errorEl.textContent = err.message || 'Ocurrió un error. Intenta de nuevo.';
     errorEl.style.display = 'block';
   }
