@@ -280,10 +280,6 @@ nav {
 
         <div class="pay-divider"></div>
 
-        <button id="btnPagar" class="btn-pay">
-          <i class="ti ti-lock"></i> Pagar y reservar mi lugar
-        </button>
-
         <div class="checkout-error" id="checkoutError"></div>
         <div class="checkout-loading" id="checkoutLoading">Cargando formulario de pago…</div>
         <div id="checkout-container"></div>
@@ -311,36 +307,31 @@ nav {
 <script>
 const stripe = Stripe('pk_test_51To92pImuwQn2usBoi4Z3OASeiubTdU6bt9XQHhZXa04YeSAKhRnIlZhnpwSTD4z1MjDv4p5oyjjdb9BWwigxxzc00Ty38Q5cm');
 
-const btnPagar = document.getElementById('btnPagar');
 const loadingEl = document.getElementById('checkoutLoading');
 const errorEl = document.getElementById('checkoutError');
 
-btnPagar.addEventListener('click', async function () {
+async function iniciarCheckout() {
   errorEl.style.display = 'none';
-  btnPagar.disabled = true;
-  btnPagar.innerHTML = '<i class="ti ti-loader-2"></i> Cargando...';
   loadingEl.style.display = 'block';
 
   try {
     const response = await fetch('/api/create-checkout-session', { method: 'POST' });
-    if (!response.ok) throw new Error('No se pudo iniciar el pago. Intenta de nuevo.');
+    if (!response.ok) throw new Error('No se pudo cargar el formulario de pago. Recarga la página.');
 
     const { clientSecret, error } = await response.json();
     if (error) throw new Error(error);
 
-    btnPagar.style.display = 'none';
     const checkout = await stripe.initEmbeddedCheckout({ clientSecret });
     loadingEl.style.display = 'none';
     checkout.mount('#checkout-container');
   } catch (err) {
     loadingEl.style.display = 'none';
-    btnPagar.disabled = false;
-    btnPagar.style.display = 'flex';
-    btnPagar.innerHTML = '<i class="ti ti-lock"></i> Pagar y reservar mi lugar';
-    errorEl.textContent = err.message || 'Ocurrió un error. Intenta de nuevo.';
+    errorEl.textContent = err.message || 'Ocurrió un error. Recarga la página para intentar de nuevo.';
     errorEl.style.display = 'block';
   }
-});
+}
+
+iniciarCheckout();
 </script>
 
 </body>
