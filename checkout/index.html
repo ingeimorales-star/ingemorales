@@ -174,6 +174,7 @@ nav {
   transition: background 0.15s;
 }
 .btn-pay:hover { background: var(--orange2); }
+.btn-pay:disabled { opacity: 0.6; cursor: not-allowed; }
 .btn-pay i { font-size: 19px; }
 
 .pay-secure {
@@ -215,6 +216,30 @@ nav {
   font-size: 12px; color: var(--muted); font-weight: 500;
 }
 .trust-strip i { color: var(--orange); font-size: 16px; }
+
+/* EMBEDDED CHECKOUT CONTAINER */
+#checkout-container {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 0;
+}
+.checkout-error {
+  background: #FDEEEE;
+  color: #B3261E;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  margin-top: 12px;
+  display: none;
+}
+.checkout-loading {
+  text-align: center;
+  font-size: 13px;
+  color: #8FA3A9;
+  padding: 20px 0;
+  display: none;
+}
 
 @media (max-width: 800px) {
   .checkout-grid { grid-template-columns: 1fr; }
@@ -277,31 +302,32 @@ nav {
 
         <div class="pay-divider"></div>
 
-        <div class="pay-fields">
-          <div>
-            <label for="nombre">Nombre completo</label>
-            <input type="text" id="nombre" placeholder="Como aparecerá en tu constancia">
+        <div id="pre-pay-fields">
+          <div class="pay-fields">
+            <div>
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" placeholder="Como aparecerá en tu constancia">
+            </div>
+            <div>
+              <label for="correo">Correo electrónico</label>
+              <input type="email" id="correo" placeholder="tucorreo@ejemplo.com">
+            </div>
+            <div>
+              <label for="whatsapp">WhatsApp</label>
+              <input type="tel" id="whatsapp" placeholder="(664) 000 00-00">
+            </div>
           </div>
-          <div>
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" placeholder="tucorreo@ejemplo.com">
-          </div>
-          <div>
-            <label for="whatsapp">WhatsApp</label>
-            <input type="tel" id="whatsapp" placeholder="(664) 000 00-00">
-          </div>
+
+          <button id="btnPagar" class="btn-pay">
+            <i class="ti ti-lock"></i> Continuar al pago
+          </button>
+
+          <div class="checkout-error" id="checkoutError"></div>
         </div>
 
-        <!--
-          IMPORTANTE — Reemplaza el href de abajo con tu Stripe Payment Link real.
-          Se crea gratis desde: Stripe Dashboard → Payment Links → Create payment link.
-          En la configuración del Payment Link, en "After payment", activa
-          "Redirect customers to a website" y pon la URL de tu página de gracias
-          (por ejemplo: https://ingeimorales.com/gracias/)
-        -->
-        <a id="btnPagar" href="https://buy.stripe.com/TU_PAYMENT_LINK_AQUI" class="btn-pay">
-          <i class="ti ti-lock"></i> Pagar y reservar mi lugar
-        </a>
+        <div class="checkout-loading" id="checkoutLoading">Cargando formulario de pago…</div>
+
+        <div id="checkout-container"></div>
 
         <div class="pay-secure"><i class="ti ti-shield-lock"></i> Procesado de forma segura por Stripe</div>
 
@@ -322,15 +348,56 @@ nav {
   </div>
 </div>
 
+<script src="https://js.stripe.com/v3/"></script>
 <script>
-// Pasamos nombre/correo capturados como parámetros a Stripe si el Payment Link
-// tiene habilitado "client_reference_id" o campos prellenados (opcional, ajusta según tu Payment Link).
-document.getElementById('btnPagar').addEventListener('click', function (e) {
+const stripe = Stripe('pk_test_51To92pImuwQn2usBoi4Z3OASeiubTdU6bt9XQHhZXa04YeSAKhRnIlZhnpwSTD4z1MjDv4p5oyjjdb9BWwigxxzc00Ty38Q5cm');
+
+const btnPagar = document.getElementById('btnPagar');
+const preFields = document.getElementById('pre-pay-fields');
+const loadingEl = document.getElementById('checkoutLoading');
+const errorEl = document.getElementById('checkoutError');
+const checkoutContainer = document.getElementById('checkout-container');
+
+btnPagar.addEventListener('click', async function () {
+  const nombre = document.getElementById('nombre').value.trim();
   const correo = document.getElementById('correo').value.trim();
-  if (correo) {
-    const url = new URL(this.href);
-    url.searchParams.set('prefilled_email', correo);
-    this.href = url.toString();
+
+  errorEl.style.display = 'none';
+
+  if (!correo || !correo.includes('@')) {
+    errorEl.textContent = 'Ingresa un correo electrónico válido para continuar.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  btnPagar.disabled = true;
+  btnPagar.innerHTML = '<i class="ti ti-loader-2"></i> Cargando...';
+
+  try {
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, correo }),
+    });
+
+    if (!response.ok) throw new Error('No se pudo iniciar el pago. Intenta de nuevo.');
+
+    const { clientSecret, error } = await response.json();
+    if (error) throw new Error(error);
+
+    preFields.style.display = 'none';
+    loadingEl.style.display = 'block';
+
+    const checkout = await stripe.initEmbeddedCheckout({ clientSecret });
+    loadingEl.style.display = 'none';
+    checkout.mount('#checkout-container');
+  } catch (err) {
+    preFields.style.display = 'block';
+    loadingEl.style.display = 'none';
+    btnPagar.disabled = false;
+    btnPagar.innerHTML = '<i class="ti ti-lock"></i> Continuar al pago';
+    errorEl.textContent = err.message || 'Ocurrió un error. Intenta de nuevo.';
+    errorEl.style.display = 'block';
   }
 });
 </script>
