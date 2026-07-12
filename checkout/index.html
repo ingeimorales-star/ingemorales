@@ -224,6 +224,18 @@ nav {
   .pay-card { position: static; }
   .container { padding: 0 20px; }
 }
+
+@media (max-width: 480px) {
+  .container { padding: 0 14px; }
+  .checkout-wrap { padding: 32px 0 60px; }
+  .order-card, .pay-card { padding: 22px 18px; border-radius: 12px; }
+  .price-now { font-size: 38px; }
+  .checkout-title { font-size: clamp(26px, 8vw, 34px); }
+  .trust-strip { gap: 16px; font-size: 11px; }
+  .order-course { gap: 12px; }
+  .order-icon { width: 44px; height: 44px; }
+  .order-icon i { font-size: 22px; }
+}
 </style>
 </head>
 <body>
