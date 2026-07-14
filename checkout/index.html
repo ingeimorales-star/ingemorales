@@ -103,34 +103,25 @@ nav {
 .guarantee-box strong { color: var(--ink); }
 
 .pay-card {
-  background: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 32px;
-  color: #fff;
+  padding: 28px;
   position: sticky;
   top: 24px;
 }
-.price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
-.price-old { font-size: 15px; color: #7A8E94; text-decoration: line-through; }
-.price-badge {
-  background: var(--orange);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
+.pay-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
-.price-now {
+.pay-header i { color: var(--orange); font-size: 20px; }
+.pay-header span {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 46px;
+  font-size: 19px;
   letter-spacing: 0.5px;
-  margin-bottom: 4px;
 }
-.price-note { font-size: 12px; color: #8FA3A9; margin-bottom: 26px; }
-
-.pay-divider { border-top: 1px solid rgba(255,255,255,0.12); margin: 22px 0; }
 
 .btn-pay {
   width: 100%;
@@ -162,8 +153,8 @@ nav {
   justify-content: center;
   gap: 6px;
   font-size: 11px;
-  color: #7A8E94;
-  margin-top: 14px;
+  color: var(--muted);
+  margin-top: 16px;
 }
 .pay-secure i { color: var(--green); font-size: 14px; }
 
@@ -171,15 +162,15 @@ nav {
   display: flex;
   gap: 8px;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 14px;
   flex-wrap: wrap;
 }
 .pm {
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid var(--border);
   border-radius: 5px;
   padding: 5px 9px;
   font-size: 11px;
-  color: #8FA3A9;
+  color: var(--muted);
   font-weight: 600;
 }
 
@@ -229,7 +220,6 @@ nav {
   .container { padding: 0 14px; }
   .checkout-wrap { padding: 32px 0 60px; }
   .order-card, .pay-card { padding: 22px 18px; border-radius: 12px; }
-  .price-now { font-size: 38px; }
   .checkout-title { font-size: clamp(26px, 8vw, 34px); }
   .trust-strip { gap: 16px; font-size: 11px; }
   .order-course { gap: 12px; }
@@ -283,6 +273,8 @@ nav {
 
       <!-- PANEL DE PAGO -->
       <div class="pay-card">
+        <div class="pay-header"><i class="ti ti-lock"></i><span>Completa tu pago</span></div>
+
         <div class="checkout-error" id="checkoutError"></div>
         <div class="checkout-loading" id="checkoutLoading">Cargando formulario de pago…</div>
         <div id="checkout-container"></div>
