@@ -32,6 +32,7 @@ body {
 }
 
 .container { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 40px; }
+.checkout-container-narrow { width: 100%; max-width: 620px; margin: 0 auto; }
 
 nav {
   background: var(--cream);
@@ -56,10 +57,9 @@ nav {
 .checkout-sub { font-size: 14px; color: var(--muted); margin-bottom: 40px; }
 
 .checkout-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 32px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .order-card {
@@ -106,9 +106,7 @@ nav {
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 28px;
-  position: sticky;
-  top: 24px;
+  padding: 32px;
 }
 .pay-header {
   display: flex;
@@ -211,8 +209,6 @@ nav {
 }
 
 @media (max-width: 800px) {
-  .checkout-grid { grid-template-columns: 1fr; }
-  .pay-card { position: static; }
   .container { padding: 0 20px; }
 }
 
@@ -241,6 +237,7 @@ nav {
 
 <div class="checkout-wrap">
   <div class="container">
+    <div class="checkout-container-narrow">
     <div class="checkout-title">Confirma tu lugar</div>
     <div class="checkout-sub">Estás a un paso de comenzar tu entrenamiento en ISO 9001:2015.</div>
 
@@ -294,6 +291,7 @@ nav {
       <div><i class="ti ti-lock"></i> Conexión cifrada</div>
       <div><i class="ti ti-mail-forward"></i> Confirmación por correo</div>
       <div><i class="ti ti-headset"></i> Soporte post-taller</div>
+    </div>
     </div>
   </div>
 </div>
