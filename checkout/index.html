@@ -56,13 +56,7 @@ nav {
 }
 .checkout-sub { font-size: 14px; color: var(--muted); margin-bottom: 40px; }
 
-.checkout-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.order-card {
+.checkout-card {
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -102,10 +96,15 @@ nav {
 .guarantee-box div { font-size: 13px; color: #4B5760; line-height: 1.55; }
 .guarantee-box strong { color: var(--ink); }
 
+.section-divider {
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+
 .pay-card {
   background: var(--ink);
-  border-radius: 14px;
-  padding: 32px;
+  border-radius: 12px;
+  padding: 28px;
   color: #fff;
 }
 .pay-header {
@@ -216,7 +215,8 @@ nav {
 @media (max-width: 480px) {
   .container { padding: 0 14px; }
   .checkout-wrap { padding: 32px 0 60px; }
-  .order-card, .pay-card { padding: 22px 18px; border-radius: 12px; }
+  .checkout-card { padding: 22px 18px; border-radius: 12px; }
+  .pay-card { padding: 20px 16px; }
   .checkout-title { font-size: clamp(26px, 8vw, 34px); }
   .trust-strip { gap: 16px; font-size: 11px; }
   .order-course { gap: 12px; }
@@ -242,32 +242,31 @@ nav {
     <div class="checkout-title">Confirma tu lugar</div>
     <div class="checkout-sub">Estás a un paso de comenzar tu entrenamiento en ISO 9001:2015.</div>
 
-    <div class="checkout-grid">
+    <div class="checkout-card">
 
-      <!-- RESUMEN DEL CURSO -->
-      <div class="order-card">
-        <div class="order-course">
-          <div class="order-icon"><i class="ti ti-certificate"></i></div>
-          <div>
-            <div class="order-name">Calidad basada en ISO 9001:2015</div>
-            <div class="order-meta">12 hrs · 3 días · Curso online en vivo</div>
-          </div>
-        </div>
-
-        <div class="includes-title">Qué incluye tu lugar</div>
-        <ul class="includes-list">
-          <li><i class="ti ti-circle-check-filled"></i> Acceso a las 3 sesiones en vivo (12 hrs de contenido)</li>
-          <li><i class="ti ti-circle-check-filled"></i> Actividades prácticas, individuales y grupales</li>
-          <li><i class="ti ti-circle-check-filled"></i> Constancia de participación al finalizar el curso</li>
-          <li><i class="ti ti-circle-check-filled"></i> Soporte post-taller para resolver tus dudas</li>
-          <li><i class="ti ti-circle-check-filled"></i> Grupo limitado para atención personalizada</li>
-        </ul>
-
-        <div class="guarantee-box">
-          <i class="ti ti-shield-check"></i>
-          <div><strong>Confirmación inmediata.</strong> Al completar tu pago recibirás un correo con los detalles de acceso y el enlace al grupo de soporte del curso.</div>
+      <div class="order-course">
+        <div class="order-icon"><i class="ti ti-certificate"></i></div>
+        <div>
+          <div class="order-name">Calidad basada en ISO 9001:2015</div>
+          <div class="order-meta">12 hrs · 3 días · Curso online en vivo</div>
         </div>
       </div>
+
+      <div class="includes-title">Qué incluye tu lugar</div>
+      <ul class="includes-list">
+        <li><i class="ti ti-circle-check-filled"></i> Acceso a las 3 sesiones en vivo (12 hrs de contenido)</li>
+        <li><i class="ti ti-circle-check-filled"></i> Actividades prácticas, individuales y grupales</li>
+        <li><i class="ti ti-circle-check-filled"></i> Constancia de participación al finalizar el curso</li>
+        <li><i class="ti ti-circle-check-filled"></i> Soporte post-taller para resolver tus dudas</li>
+        <li><i class="ti ti-circle-check-filled"></i> Grupo limitado para atención personalizada</li>
+      </ul>
+
+      <div class="guarantee-box">
+        <i class="ti ti-shield-check"></i>
+        <div><strong>Confirmación inmediata.</strong> Al completar tu pago recibirás un correo con los detalles de acceso y el enlace al grupo de soporte del curso.</div>
+      </div>
+
+      <div class="section-divider"></div>
 
       <!-- PANEL DE PAGO -->
       <div class="pay-card">
